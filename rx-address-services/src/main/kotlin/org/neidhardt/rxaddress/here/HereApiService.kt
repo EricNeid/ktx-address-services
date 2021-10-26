@@ -6,8 +6,10 @@ package org.neidhardt.rxaddress.here
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import org.neidhardt.rxaddress.here.model.GeoCode
 import org.neidhardt.rxaddress.here.model.HereGeoCodeResult
 import org.neidhardt.rxaddress.here.model.HereSuggestResult
+import org.neidhardt.rxaddress.here.model.Suggestion
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -73,4 +75,26 @@ class HereApiService(
 		return hereGeoCode.geocode(apiKey, locationId).subscribeOn(Schedulers.io())
 	}
 
+	/**
+	 * getLocationsForQuery returns a list of suggestions and location details for a given query.
+	 * This is convenient, because a here suggestion (for strange reason) does not contain the actual geoPosition.
+	 *
+	 * @param query The query to obtain addresses for.
+	 */
+	fun getLocationsForQuery(query: String): Single<List<Pair<Suggestion,GeoCode>>> {
+		return getSuggestResult(query)
+			.flattenAsObservable { it.suggestions }
+			.filter { it.label != null }
+			.flatMapSingle { suggestionResult ->
+				getGeoCodeResult(suggestionResult.locationId)
+					.map { geoCodingResult ->
+						Pair(suggestionResult, geoCodingResult.response)
+					}
+			}
+			.filter { pair ->
+				pair.second.view.firstOrNull()?.result
+					?.firstOrNull()?.location?.displayPosition != null
+			}
+			.toList()
+	}
 }

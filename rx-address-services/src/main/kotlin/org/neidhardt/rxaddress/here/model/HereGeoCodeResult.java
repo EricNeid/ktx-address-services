@@ -11,13 +11,13 @@ public class HereGeoCodeResult {
 
     @SerializedName("response")
     @Expose
-    private Response response;
+    private GeoCode response;
 
-    public Response getResponse() {
+    public GeoCode getResponse() {
         return response;
     }
 
-    public void setResponse(Response response) {
+    public void setResponse(GeoCode response) {
         this.response = response;
     }
 
