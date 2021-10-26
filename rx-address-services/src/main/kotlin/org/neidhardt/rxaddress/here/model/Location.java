@@ -18,10 +18,10 @@ public class Location {
     private String locationType;
     @SerializedName("displayPosition")
     @Expose
-    private DisplayPosition displayPosition;
+    private Position displayPosition;
     @SerializedName("navigationPosition")
     @Expose
-    private List<NavigationPosition> navigationPosition = null;
+    private List<Position> navigationPosition = null;
     @SerializedName("mapView")
     @Expose
     private MapView mapView;
@@ -45,19 +45,19 @@ public class Location {
         this.locationType = locationType;
     }
 
-    public DisplayPosition getDisplayPosition() {
+    public Position getDisplayPosition() {
         return displayPosition;
     }
 
-    public void setDisplayPosition(DisplayPosition displayPosition) {
+    public void setDisplayPosition(Position displayPosition) {
         this.displayPosition = displayPosition;
     }
 
-    public List<NavigationPosition> getNavigationPosition() {
+    public List<Position> getNavigationPosition() {
         return navigationPosition;
     }
 
-    public void setNavigationPosition(List<NavigationPosition> navigationPosition) {
+    public void setNavigationPosition(List<Position> navigationPosition) {
         this.navigationPosition = navigationPosition;
     }
 

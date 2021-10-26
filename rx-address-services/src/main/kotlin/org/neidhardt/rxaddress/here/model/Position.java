@@ -7,7 +7,7 @@ package org.neidhardt.rxaddress.here.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class BottomRight {
+public class Position {
 
     @SerializedName("latitude")
     @Expose

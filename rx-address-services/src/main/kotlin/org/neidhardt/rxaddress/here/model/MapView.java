@@ -11,24 +11,24 @@ public class MapView {
 
     @SerializedName("topLeft")
     @Expose
-    private TopLeft topLeft;
+    private Position topLeft;
     @SerializedName("bottomRight")
     @Expose
-    private BottomRight bottomRight;
+    private Position bottomRight;
 
-    public TopLeft getTopLeft() {
+    public Position getTopLeft() {
         return topLeft;
     }
 
-    public void setTopLeft(TopLeft topLeft) {
+    public void setTopLeft(Position topLeft) {
         this.topLeft = topLeft;
     }
 
-    public BottomRight getBottomRight() {
+    public Position getBottomRight() {
         return bottomRight;
     }
 
-    public void setBottomRight(BottomRight bottomRight) {
+    public void setBottomRight(Position bottomRight) {
         this.bottomRight = bottomRight;
     }
 
