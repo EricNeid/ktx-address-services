@@ -25,7 +25,11 @@ dependencies {
 
 ## Usage
 
-TBD
+```kotlin
+val service = HereApiService("apikey")
+
+val result = service.getSuggestResult("Ber")
+```
 
 ## Question or comments
 
