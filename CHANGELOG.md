@@ -7,6 +7,10 @@ SPDX-License-Identifier: CC-BY-4.0
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+## v0.2.0 - 2021-10-26
+### Added 
+* Nominatim api service
+
 ## v0.1.0 - 2021-10-26
 ### Added
 * Initial commit

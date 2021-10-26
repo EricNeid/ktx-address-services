@@ -19,16 +19,16 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.ericneid:rx-address-service:0.1.0'
+    implementation 'com.github.ericneid:rx-address-service:0.2.0'
 }
 ```
 
 ## Usage
 
 ```kotlin
-val service = HereApiService("apikey")
+val resultHere = HereApiService("apikey").getSuggestResult("Ber")
 
-val result = service.getSuggestResult("Ber")
+val resultNominatim = NominatimApiService().getSearchResults("Ber")
 ```
 
 ## Question or comments

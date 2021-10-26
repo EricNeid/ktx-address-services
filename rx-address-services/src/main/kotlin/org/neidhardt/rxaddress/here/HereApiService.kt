@@ -61,6 +61,7 @@ class HereApiService(
 	 * Useful for implementing address search functionality.
 	 *
 	 * @param query The query to obtain addresses for.
+	 * @return Suggestion result
 	 */
 	fun getSuggestResult(query: String): Single<HereSuggestResult> {
 		return hereSuggest.suggest(apiKey, query).subscribeOn(Schedulers.io())
@@ -70,6 +71,7 @@ class HereApiService(
 	 * getGeoCodeResult returns location details for a given location id.
 	 *
 	 * @param locationId Id for location to lock up.
+	 * @return Geo coding result.
 	 */
 	fun getGeoCodeResult(locationId: String): Single<HereGeoCodeResult> {
 		return hereGeoCode.geocode(apiKey, locationId).subscribeOn(Schedulers.io())
@@ -80,6 +82,7 @@ class HereApiService(
 	 * This is convenient, because a here suggestion (for strange reason) does not contain the actual geoPosition.
 	 *
 	 * @param query The query to obtain addresses for.
+	 * @return List of pairs, containing a suggestion and matching geocode.
 	 */
 	fun getLocationsForQuery(query: String): Single<List<Pair<Suggestion,GeoCode>>> {
 		return getSuggestResult(query)
