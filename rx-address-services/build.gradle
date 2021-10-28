@@ -4,7 +4,7 @@
  */
 def groupId = 'com.github.ericneid'
 def libraryName = 'rx-address-services'
-def libraryVersion = '0.2.0'
+def libraryVersion = '0.2.1'
 
 ext {
 	PUBLISH_GROUP_ID = groupId
@@ -61,7 +61,7 @@ repositories {
 
 def androidSupportLibVersion = '27.1.1'
 def androidxTestVersion = '1.3.0'
-def retrofitVersion = '2.5.0'
+def retrofitVersion = '2.9.0'
 
 dependencies {
 	// android support
