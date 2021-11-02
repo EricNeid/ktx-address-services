@@ -5,7 +5,6 @@
 package org.neidhardt.rxaddress.here
 
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import org.neidhardt.rxaddress.here.model.GeoCode
 import org.neidhardt.rxaddress.here.model.HereGeoCodeResult
 import org.neidhardt.rxaddress.here.model.HereSuggestResult
@@ -34,7 +33,7 @@ private interface HereGeoCoderApi {
 
 /**
  * HereApiService provides an rx wrapper for the HERE API.
- * Data is retrieved using retrofit. It uses the io scheduler by default.
+ * Data is retrieved using retrofit.
  *
  * @property apiKey A valid key for HERE.
  */
@@ -64,7 +63,7 @@ class HereApiService(
 	 * @return Suggestion result
 	 */
 	fun getSuggestResult(query: String): Single<HereSuggestResult> {
-		return hereSuggest.suggest(apiKey, query).subscribeOn(Schedulers.io())
+		return hereSuggest.suggest(apiKey, query)
 	}
 
 	/**
@@ -74,7 +73,7 @@ class HereApiService(
 	 * @return Geo coding result.
 	 */
 	fun getGeoCodeResult(locationId: String): Single<HereGeoCodeResult> {
-		return hereGeoCode.geocode(apiKey, locationId).subscribeOn(Schedulers.io())
+		return hereGeoCode.geocode(apiKey, locationId)
 	}
 
 	/**

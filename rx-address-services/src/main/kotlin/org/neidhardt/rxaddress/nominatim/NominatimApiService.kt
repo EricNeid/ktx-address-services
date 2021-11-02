@@ -5,7 +5,6 @@
 package org.neidhardt.rxaddress.nominatim
 
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import org.neidhardt.rxaddress.nominatim.model.SearchResult
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -29,12 +28,12 @@ class NominatimApiService {
 
 	/**
 	 * getSearchResults returns address information from Nominatim.
-	 * It uses RX and Retrofit to get the data and subscribes on background thread.
+	 * It uses RX and Retrofit to get the data.
 	 *
 	 * @param query The query to obtain addresses for.
 	 * @return List of search results.
 	 */
 	fun getSearchResults(query: String): Single<List<SearchResult>> {
-		return nominatimApi.search(query).subscribeOn(Schedulers.io())
+		return nominatimApi.search(query)
 	}
 }
