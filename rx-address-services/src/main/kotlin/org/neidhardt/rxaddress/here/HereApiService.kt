@@ -4,13 +4,13 @@
  */
 package org.neidhardt.rxaddress.here
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import org.neidhardt.rxaddress.here.model.GeoCode
 import org.neidhardt.rxaddress.here.model.HereGeoCodeResult
 import org.neidhardt.rxaddress.here.model.HereSuggestResult
 import org.neidhardt.rxaddress.here.model.Suggestion
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -43,14 +43,14 @@ class HereApiService(
 
 	private val hereSuggest = Retrofit.Builder()
 		.baseUrl("https://autocomplete.geocoder.ls.hereapi.com/6.2/")
-		.addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // return rx observable
+		.addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // return rx observable
 		.addConverterFactory(GsonConverterFactory.create()) // use gson for serialization
 		.build()
 		.create(HereSuggestionApi::class.java)
 
 	private val hereGeoCode = Retrofit.Builder()
 		.baseUrl("https://geocoder.ls.hereapi.com/6.2/")
-		.addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // return rx observable
+		.addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // return rx observable
 		.addConverterFactory(GsonConverterFactory.create()) // use gson for serialization
 		.build()
 		.create(HereGeoCoderApi::class.java)
