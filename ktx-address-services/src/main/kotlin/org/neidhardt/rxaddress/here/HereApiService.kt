@@ -41,17 +41,20 @@ class HereApiService(
 	private val apiKey: String
 ) {
 
+	var baseUrlSuggestionApi = "https://autocomplete.geocoder.ls.hereapi.com/6.2/"
+	var baseUrlGeoCoderApi = "https://geocoder.ls.hereapi.com/6.2/"
+
 	private val hereSuggest = Retrofit.Builder()
-		.baseUrl("https://autocomplete.geocoder.ls.hereapi.com/6.2/")
-		.addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // return rx observable
-		.addConverterFactory(GsonConverterFactory.create()) // use gson for serialization
+		.baseUrl(baseUrlSuggestionApi)
+		.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 		.create(HereSuggestionApi::class.java)
 
 	private val hereGeoCode = Retrofit.Builder()
-		.baseUrl("https://geocoder.ls.hereapi.com/6.2/")
-		.addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // return rx observable
-		.addConverterFactory(GsonConverterFactory.create()) // use gson for serialization
+		.baseUrl(baseUrlGeoCoderApi)
+		.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 		.create(HereGeoCoderApi::class.java)
 
