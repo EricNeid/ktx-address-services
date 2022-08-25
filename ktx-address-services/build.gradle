@@ -26,25 +26,25 @@ android {
 		targetSdkVersion project.targetSdkVersion
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 	}
-
 	buildTypes {
 		release {
 			minifyEnabled false
 		}
 	}
-
 	sourceSets {
 		main.java.srcDirs += 'src/main/kotlin'
 		test.java.srcDirs += 'src/test/kotlin'
 		debug.java.srcDirs += 'src/debug/kotlin'
 		release.java.srcDirs += 'src/release/kotlin'
 	}
-
+	kotlinOptions {
+		jvmTarget = JavaVersion.VERSION_1_8.toString()
+		freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+	}
 	compileOptions {
 		sourceCompatibility = '1.8'
 		targetCompatibility = '1.8'
 	}
-
 	testOptions {
 		unitTests.returnDefaultValues = true
 	}

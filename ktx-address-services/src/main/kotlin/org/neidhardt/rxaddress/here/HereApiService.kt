@@ -5,6 +5,7 @@
 package org.neidhardt.rxaddress.here
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import org.neidhardt.rxaddress.here.model.GeoCode
 import org.neidhardt.rxaddress.here.model.HereGeoCodeResult
@@ -91,6 +92,7 @@ class HereApiService(
 	 * @param query The query to obtain addresses for.
 	 * @return List of pairs, containing a suggestion and matching geocode.
 	 */
+	@OptIn(FlowPreview::class)
 	fun getLocationsForQuery(query: String): Flow<List<Pair<Suggestion,GeoCode>>> {
 		return getSuggestResult(query)
 			.map { it.suggestions }
