@@ -4,31 +4,31 @@
  */
 package org.neidhardt.rxaddress.here
 
-import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import org.neidhardt.rxaddress.here.model.GeoCode
 import org.neidhardt.rxaddress.here.model.HereGeoCodeResult
 import org.neidhardt.rxaddress.here.model.HereSuggestResult
 import org.neidhardt.rxaddress.here.model.Suggestion
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 private interface HereSuggestionApi {
 	@GET("suggest.json?maxresults=20&country=DEU")
-	fun suggest(
+	suspend fun suggest(
 		@Query("apiKey") apiKey: String,
 		@Query("query") query: String
-	): Single<HereSuggestResult>
+	): HereSuggestResult
 }
 
 private interface HereGeoCoderApi {
 	@GET("geocode.json?jsonattributes=1&gen=9")
-	fun geocode(
+	suspend fun geocode(
 		@Query("apiKey") apiKey: String,
 		@Query("locationid") locationId: String
-	): Single<HereGeoCodeResult>
+	): HereGeoCodeResult
 }
 
 /**
@@ -43,17 +43,16 @@ class HereApiService(
 
 	var baseUrlSuggestionApi = "https://autocomplete.geocoder.ls.hereapi.com/6.2/"
 	var baseUrlGeoCoderApi = "https://geocoder.ls.hereapi.com/6.2/"
+	var dispatcher = Dispatchers.IO
 
 	private val hereSuggest = Retrofit.Builder()
 		.baseUrl(baseUrlSuggestionApi)
-		.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
 		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 		.create(HereSuggestionApi::class.java)
 
 	private val hereGeoCode = Retrofit.Builder()
 		.baseUrl(baseUrlGeoCoderApi)
-		.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
 		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 		.create(HereGeoCoderApi::class.java)
@@ -65,8 +64,11 @@ class HereApiService(
 	 * @param query The query to obtain addresses for.
 	 * @return Suggestion result
 	 */
-	fun getSuggestResult(query: String): Single<HereSuggestResult> {
-		return hereSuggest.suggest(apiKey, query)
+	fun getSuggestResult(query: String): Flow<HereSuggestResult> {
+		return flow {
+			val result = hereSuggest.suggest(apiKey, query)
+			emit(result)
+		}.flowOn(dispatcher)
 	}
 
 	/**
@@ -75,8 +77,11 @@ class HereApiService(
 	 * @param locationId Id for location to lock up.
 	 * @return Geo coding result.
 	 */
-	fun getGeoCodeResult(locationId: String): Single<HereGeoCodeResult> {
-		return hereGeoCode.geocode(apiKey, locationId)
+	fun getGeoCodeResult(locationId: String): Flow<HereGeoCodeResult> {
+		return flow {
+			val result = hereGeoCode.geocode(apiKey, locationId)
+			emit(result)
+		}.flowOn(dispatcher)
 	}
 
 	/**
@@ -86,20 +91,19 @@ class HereApiService(
 	 * @param query The query to obtain addresses for.
 	 * @return List of pairs, containing a suggestion and matching geocode.
 	 */
-	fun getLocationsForQuery(query: String): Single<List<Pair<Suggestion,GeoCode>>> {
+	fun getLocationsForQuery(query: String): Flow<List<Pair<Suggestion,GeoCode>>> {
 		return getSuggestResult(query)
-			.flattenAsObservable { it.suggestions }
-			.filter { it.label != null }
-			.flatMapSingle { suggestionResult ->
-				getGeoCodeResult(suggestionResult.locationId)
-					.map { geoCodingResult ->
-						Pair(suggestionResult, geoCodingResult.response)
+			.map { it.suggestions }
+			.map { it -> it.filter { it.label != null } }
+			.flatMapConcat { suggestions ->
+				flow {
+					val result = suggestions.map { suggestion ->
+						getGeoCodeResult(suggestion.locationId)
+							.map { geoCodingResult -> Pair(suggestion, geoCodingResult.response) }
+							.first()
 					}
+					emit(result)
+				}
 			}
-			.filter { pair ->
-				pair.second.view.firstOrNull()?.result
-					?.firstOrNull()?.location?.displayPosition != null
-			}
-			.toList()
 	}
 }

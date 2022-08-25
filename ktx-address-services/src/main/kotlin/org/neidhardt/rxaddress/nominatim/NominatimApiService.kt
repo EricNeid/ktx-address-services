@@ -3,26 +3,29 @@
  * SPDX-License-Identifier: MIT
  */
 package org.neidhardt.rxaddress.nominatim
-
-import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import org.neidhardt.rxaddress.nominatim.model.SearchResult
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 private interface NominatimApi {
 	@GET("search?format=jsonv2")
-	fun search(@Query("q") query: String): Single<List<SearchResult>>
+	suspend fun search(@Query("q") query: String): List<SearchResult>
 }
 
 class NominatimApiService {
 
+	var baseUrlNominatimApi = "https://nominatim.openstreetmap.org/"
+	var dispatcher = Dispatchers.IO
+
 	private val nominatimApi: NominatimApi = Retrofit.Builder()
-		.baseUrl("https://nominatim.openstreetmap.org/")
-		.addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // return rx observable
-		.addConverterFactory(GsonConverterFactory.create()) // use gson for serialization
+		.baseUrl(baseUrlNominatimApi)
+		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 		.create(NominatimApi::class.java)
 
@@ -33,7 +36,10 @@ class NominatimApiService {
 	 * @param query The query to obtain addresses for.
 	 * @return List of search results.
 	 */
-	fun getSearchResults(query: String): Single<List<SearchResult>> {
-		return nominatimApi.search(query)
+	fun getSearchResults(query: String): Flow<List<SearchResult>> {
+		return flow {
+			val result = nominatimApi.search(query)
+			emit(result)
+		}.flowOn(dispatcher)
 	}
 }
