@@ -30,4 +30,14 @@ class HereApiServiceTest {
 		// verify
 		assertTrue(result.isNotEmpty())
 	}
+
+	@Test
+	fun getSearchResults_emptyQuery() = runTest {
+		// arrange
+		val unit = HereApiService(apiKey)
+		// action
+		val result = unit.getLocationsForQuery("").first()
+		// verify
+		assertTrue(result.isEmpty())
+	}
 }

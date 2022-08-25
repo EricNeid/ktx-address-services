@@ -96,7 +96,7 @@ class HereApiService(
 	fun getLocationsForQuery(query: String): Flow<List<Pair<Suggestion,GeoCode>>> {
 		return getSuggestResult(query)
 			.map { it.suggestions }
-			.map { it -> it.filter { it.label != null } }
+			.map { it -> it?.filter { it.label != null } ?: emptyList() }
 			.flatMapConcat { suggestions ->
 				flow {
 					val result = suggestions.map { suggestion ->

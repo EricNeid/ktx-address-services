@@ -7,6 +7,9 @@ SPDX-License-Identifier: CC-BY-4.0
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+## v0.1.1 - 2022-08-25
+### Fixed
+* Potential npe
 
 ## v0.1.0 - 2022-08-25
 ### Added
