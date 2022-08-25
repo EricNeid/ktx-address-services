@@ -6,10 +6,11 @@ SPDX-License-Identifier: CC-BY-4.0
 <!-- markdownlint-disable MD041-->
 # About
 
-RX-address-services is a simple rxJava2 wrapper around some address resolution and geocoding services.
+KTX-address-services is a simple flow wrapper around some address resolution and geocoding services.
 Currently supported:
 
 * HERE - geolocation service of here
+* Nominatim
 
 ## Gradle
 
@@ -19,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.ericneid:rx-address-service:0.2.0'
+    implementation 'com.github.ericneid:ktx-address-service:0.1.0'
 }
 ```
 
