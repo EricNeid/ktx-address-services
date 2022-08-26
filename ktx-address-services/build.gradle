@@ -4,7 +4,7 @@
  */
 def groupId = 'com.github.ericneid'
 def libraryName = 'ktx-address-services'
-def libraryVersion = '0.1.1'
+def libraryVersion = '0.2.0'
 
 ext {
 	PUBLISH_GROUP_ID = groupId

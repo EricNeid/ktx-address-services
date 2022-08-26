@@ -7,6 +7,12 @@ SPDX-License-Identifier: CC-BY-4.0
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+## v0.2.0 - 2022-08-26
+### Changed
+* Update OKHttpClient to 4.10
+### Added
+* Option to configure used client
+
 ## v0.1.1 - 2022-08-25
 ### Fixed
 * Potential npe
