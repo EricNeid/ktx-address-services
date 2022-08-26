@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.OkHttpClient
 import org.neidhardt.rxaddress.nominatim.model.SearchResult
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,9 +23,11 @@ class NominatimApiService {
 
 	var baseUrlNominatimApi = "https://nominatim.openstreetmap.org/"
 	var dispatcher = Dispatchers.IO
+	var httpClient = OkHttpClient()
 
 	private val nominatimApi: NominatimApi = Retrofit.Builder()
 		.baseUrl(baseUrlNominatimApi)
+		.client(httpClient)
 		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 		.create(NominatimApi::class.java)

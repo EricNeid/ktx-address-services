@@ -7,6 +7,7 @@ package org.neidhardt.rxaddress.here
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
+import okhttp3.OkHttpClient
 import org.neidhardt.rxaddress.here.model.GeoCode
 import org.neidhardt.rxaddress.here.model.HereGeoCodeResult
 import org.neidhardt.rxaddress.here.model.HereSuggestResult
@@ -45,15 +46,18 @@ class HereApiService(
 	var baseUrlSuggestionApi = "https://autocomplete.geocoder.ls.hereapi.com/6.2/"
 	var baseUrlGeoCoderApi = "https://geocoder.ls.hereapi.com/6.2/"
 	var dispatcher = Dispatchers.IO
+	var httpClient = OkHttpClient()
 
 	private val hereSuggest = Retrofit.Builder()
 		.baseUrl(baseUrlSuggestionApi)
+		.client(httpClient)
 		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 		.create(HereSuggestionApi::class.java)
 
 	private val hereGeoCode = Retrofit.Builder()
 		.baseUrl(baseUrlGeoCoderApi)
+		.client(httpClient)
 		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 		.create(HereGeoCoderApi::class.java)
