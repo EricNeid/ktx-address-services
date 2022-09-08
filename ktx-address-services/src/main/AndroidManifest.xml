@@ -4,7 +4,7 @@ SPDX-License-Identifier: MIT
 -->
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.neidhardt.rxaddressservices">
+    package="org.neidhardt.ktxaddressservices">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

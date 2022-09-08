@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2021 Eric Neidhardt
  * SPDX-License-Identifier: MIT
  */
-package org.neidhardt.rxaddress.here.model;
+package org.neidhardt.ktxaddress.here.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

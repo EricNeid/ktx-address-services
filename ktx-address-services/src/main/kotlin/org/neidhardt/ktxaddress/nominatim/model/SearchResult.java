@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2021 Eric Neidhardt
  * SPDX-License-Identifier: MIT
  */
-package org.neidhardt.rxaddress.nominatim.model;
+package org.neidhardt.ktxaddress.nominatim.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

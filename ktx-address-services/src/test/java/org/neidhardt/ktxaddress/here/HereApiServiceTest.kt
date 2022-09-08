@@ -1,4 +1,4 @@
-package org.neidhardt.rxaddress.here
+package org.neidhardt.ktxaddress.here
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

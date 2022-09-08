@@ -2,13 +2,14 @@
  * SPDX-FileCopyrightText: 2021 Eric Neidhardt
  * SPDX-License-Identifier: MIT
  */
-package org.neidhardt.rxaddress.nominatim
+package org.neidhardt.ktxaddress.nominatim
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.OkHttpClient
-import org.neidhardt.rxaddress.nominatim.model.SearchResult
+import org.neidhardt.ktxaddress.nominatim.model.SearchResult
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -34,7 +35,7 @@ class NominatimApiService {
 
 	/**
 	 * getSearchResults returns address information from Nominatim.
-	 * It uses RX and Retrofit to get the data.
+	 * It uses Retrofit to get the data.
 	 *
 	 * @param query The query to obtain addresses for.
 	 * @return List of search results.

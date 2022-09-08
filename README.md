@@ -35,4 +35,4 @@ val resultNominatim = NominatimApiService().getSearchResults("Ber")
 ## Question or comments
 
 Please feel free to open a new issue:
-<https://github.com/EricNeid/rx-address-services/issues>
+<https://github.com/EricNeid/ktx-address-services/issues>

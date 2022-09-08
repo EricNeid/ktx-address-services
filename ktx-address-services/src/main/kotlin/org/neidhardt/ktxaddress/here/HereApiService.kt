@@ -2,16 +2,16 @@
  * SPDX-FileCopyrightText: 2021 Eric Neidhardt
  * SPDX-License-Identifier: MIT
  */
-package org.neidhardt.rxaddress.here
+package org.neidhardt.ktxaddress.here
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import okhttp3.OkHttpClient
-import org.neidhardt.rxaddress.here.model.GeoCode
-import org.neidhardt.rxaddress.here.model.HereGeoCodeResult
-import org.neidhardt.rxaddress.here.model.HereSuggestResult
-import org.neidhardt.rxaddress.here.model.Suggestion
+import org.neidhardt.ktxaddress.here.model.GeoCode
+import org.neidhardt.ktxaddress.here.model.HereGeoCodeResult
+import org.neidhardt.ktxaddress.here.model.HereSuggestResult
+import org.neidhardt.ktxaddress.here.model.Suggestion
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -34,7 +34,7 @@ private interface HereGeoCoderApi {
 }
 
 /**
- * HereApiService provides an rx wrapper for the HERE API.
+ * HereApiService provides a wrapper for the HERE API.
  * Data is retrieved using retrofit.
  *
  * @property apiKey A valid key for HERE.

@@ -1,10 +1,8 @@
-package org.neidhardt.rxaddress.nominatim
+package org.neidhardt.ktxaddress.nominatim
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
